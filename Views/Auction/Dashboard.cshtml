@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Auction Center";
+}
+@model auctions.Models.ShowAuctions
+
+<ul class="nav navbar-nav navbar-right">
+  <li class="nav-item">
+    <a class="nav-link dashboard" href="/dashboard">Hi @Model.User.first_name</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link logout" href="/logout">LogOut</a>
+  </li>
+</ul>
+
+<h2>Current Auctions</h2>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Seller</th>
+            <th>Top Bid</th>
+            <th>Time Remaining</th>
+            <th>Owner Control</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var auction in Model.OpenAuctions)
+        {
+            <tr>
+                <td><a href="/auction/@auction.auctionid">@auction.product</a></td>
+                <td>@auction.user.username</td>
+                <td>$@auction.top_bid</td>
+                <td>@auction.time_remaining days</td>
+                @{
+                    if(auction.userid == @Model.User.userid)
+                    {
+                        <td><a href="/delete/@auction.auctionid">Delete</a></td>
+                    }
+                    else
+                    {
+                        <td>No Action</td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/new"><button>New Auction</button></a>
+
+<p>Your Current Wallet: $@Model.User.wallet</p>

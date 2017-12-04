@@ -1,0 +1,22 @@
+@model auctions.Models.AuctionInfo
+<div class="form-container">@Html.Partial("NavBar")</div>
+
+<h2>@Model.NewAuction.product</h2>
+<p>Created by: @Model.NewUser.username</p>
+
+<p>@Model.NewAuction.description</p>
+
+<h4>Current Highest Bid: @Model.NewAuction.top_bid</h4>
+<h5>Bidder: @Model.NewBid.user.username</h5>
+
+@ViewBag.Errors
+
+<form method="post" asp-controller="Auction" asp-action="itembid">
+    <div class="form-group">
+        <input type="hidden" asp-for="NewBid.auctionid" value="@Model.NewAuction.auctionid">
+        <input type="hidden" asp-for="NewAuction" value="@Model.NewAuction">
+        <span asp-validation-for="NewBid.amount"></span>
+        <input class="form-control" asp-for="NewBid.amount">
+    </div>
+    <input type="submit" value="Bid">
+</form>

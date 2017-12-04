@@ -1,0 +1,15 @@
+@model auctions.Models.LoginViewModel
+<h2>Login</h2>
+<form method="post" asp-controller="Home" asp-action="signin">
+    <div class="form-group">
+        <span asp-validation-for="logusername"></span>
+        <label asp-for="logusername"></label>
+        <input class="form-control" asp-for="logusername">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="logpassword"></span>
+        <label asp-for="logpassword"></label>
+        <input class="form-control" asp-for="logpassword">
+    </div>
+    <input type="submit" value="Login">
+</form>
